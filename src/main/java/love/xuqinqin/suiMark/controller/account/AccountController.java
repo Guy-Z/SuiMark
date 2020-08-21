@@ -24,11 +24,11 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @PostMapping("accounts")
-    @ResponseBody
-    public List<Account> accounts(){
-        return accountService.getAccounts();
-    }
+//    @PostMapping("accounts")
+//    @ResponseBody
+//    public List<Account> accounts(){
+//        return accountService.getAccounts();
+//    }
 
     @PostMapping("reg")
     @ResponseBody
