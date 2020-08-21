@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -37,8 +38,26 @@ public class AccountController {
 
     @PostMapping("login")
     @ResponseBody
-    public Msg login(Account account){
-        return accountService.logAccount(account);
+    public Msg login(Account account, HttpSession session){
+        Msg msg = accountService.logAccount(account);
+        if(msg.isFlag()){
+            session.setAttribute("login",accountService.getAccountByUsername(account.getUsername()));
+        }
+        System.out.println(session.getAttribute("login"));
+        return msg;
+    }
+
+    @PostMapping("now")
+    @ResponseBody
+    public AccountAndInfo now(HttpSession session){
+        return (AccountAndInfo) session.getAttribute("login");
+    }
+
+    @PostMapping("out")
+    @ResponseBody
+    public Msg out(HttpSession session){
+        session.removeAttribute("login");
+        return new Msg(true,"注销成功");
     }
 
 

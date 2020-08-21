@@ -16,4 +16,6 @@ public interface IAccountService {
 
     Msg addAccount(AccountAndInfo accountAndInfo);
 
+    AccountAndInfo getAccountByUsername(String username);
+
 }

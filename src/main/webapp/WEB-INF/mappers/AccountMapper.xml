@@ -29,5 +29,11 @@
         where username = #{username}
     </select>
 
+    <select id="getAccountInfoByUsername" resultType="love.xuqinqin.suiMark.model.AccountInfo" parameterType="java.lang.Integer">
+        select id, name
+        from accountinfo
+        where id = #{id}
+    </select>
+
 
 </mapper>

@@ -73,6 +73,18 @@ public class AccountService implements IAccountService {
         return new Msg(false, "用户名或密码错误");
     }
 
+    /**
+     * 通过账号获取账户对象
+     *
+     * @param username
+     * @return
+     */
+    public AccountAndInfo getAccountByUsername(String username){
+        Account account = accountMapper.getAccountByUsername(username);
+        AccountInfo accountInfo = accountMapper.getAccountInfoByUsername(account.getId());
+        return new AccountAndInfo(account.getId(),accountInfo.getName(),account.getUsername(),account.getPassword());
+    }
+
 
     /**
      * 账户信息是否为空
@@ -132,7 +144,6 @@ public class AccountService implements IAccountService {
      * @return
      */
     private boolean accountExist(String username) {
-        System.out.println(accountMapper.getAccountByUsername(username));
         return accountMapper.getAccountByUsername(username) != null;
     }
 

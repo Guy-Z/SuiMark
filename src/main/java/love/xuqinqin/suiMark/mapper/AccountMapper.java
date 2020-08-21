@@ -2,6 +2,7 @@ package love.xuqinqin.suiMark.mapper;
 
 import love.xuqinqin.suiMark.model.Account;
 import love.xuqinqin.suiMark.model.AccountInfo;
+import love.xuqinqin.suiMark.model.dto.AccountAndInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,5 +21,7 @@ public interface AccountMapper {
     Integer addAccountInfo(AccountInfo accountInfo);
 
     Account getAccountByUsername(String username);
+
+    AccountInfo getAccountInfoByUsername(Integer id);
 
 }
