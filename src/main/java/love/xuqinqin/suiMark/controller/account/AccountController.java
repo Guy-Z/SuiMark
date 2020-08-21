@@ -35,6 +35,12 @@ public class AccountController {
         return accountService.addAccount(accountAndInfo);
     }
 
+    @PostMapping("login")
+    @ResponseBody
+    public Msg login(Account account){
+        return accountService.logAccount(account);
+    }
+
 
 
 }
