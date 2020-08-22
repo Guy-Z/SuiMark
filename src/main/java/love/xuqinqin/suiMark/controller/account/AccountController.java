@@ -30,12 +30,25 @@ public class AccountController {
 //        return accountService.getAccounts();
 //    }
 
+    /**
+     * 用户注册
+     *
+     * @param accountAndInfo
+     * @return
+     */
     @PostMapping("reg")
     @ResponseBody
     public Msg reg(AccountAndInfo accountAndInfo){
         return accountService.addAccount(accountAndInfo);
     }
 
+    /**
+     * 用户登录
+     *
+     * @param account
+     * @param session
+     * @return
+     */
     @PostMapping("login")
     @ResponseBody
     public Msg login(Account account, HttpSession session){
@@ -47,12 +60,24 @@ public class AccountController {
         return msg;
     }
 
+    /**
+     * 当前用户
+     *
+     * @param session
+     * @return
+     */
     @PostMapping("now")
     @ResponseBody
     public AccountAndInfo now(HttpSession session){
         return (AccountAndInfo) session.getAttribute("login");
     }
 
+    /**
+     * 注销登录
+     *
+     * @param session
+     * @return
+     */
     @PostMapping("out")
     @ResponseBody
     public Msg out(HttpSession session){
