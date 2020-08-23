@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/static/editor/css/editormd.min.css" rel="stylesheet">
+    <link href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <style>
+        html,body{
+            height: 100%;
+        }
+        .container{
+            height: 80%;
+        }
+
+
+    </style>
+    <title>创建随记 - SuiMark</title>
+</head>
+<body>
+<div class="container">
+    <div id="editor">
+        <textarea style="display: none;"></textarea>
+    </div>
+</div>
+</body>
+<script src="/webjars/jquery/3.4.1/dist/jquery.min.js"></script>
+<script src="/static/editor/editormd.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var editor = editormd("editor", {
+            width: "100%",
+            height: "100%",
+            emoji: "true",
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "/file/upload",
+            path: "/static/editor/lib/"
+        });
+    });
+</script>
+</html>

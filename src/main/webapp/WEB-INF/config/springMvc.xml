@@ -13,7 +13,8 @@
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
     <context:component-scan base-package="love.xuqinqin.suiMark"/>
-    <context:property-placeholder location="/WEB-INF/config/dataInfo.properties"/>
+    <!--只能存在一个标签-->
+    <context:property-placeholder location="/WEB-INF/config/*.properties"/>
 
     <!--    Mybatis 模块    -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -47,6 +48,11 @@
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine"/>
         <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="maxUploadSize" value="5400000"/>
     </bean>
 
 </beans>
