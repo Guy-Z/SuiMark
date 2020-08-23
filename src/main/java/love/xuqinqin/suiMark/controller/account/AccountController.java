@@ -56,7 +56,6 @@ public class AccountController {
         if(msg.isFlag()){
             session.setAttribute("login",accountService.getAccountByUsername(account.getUsername()));
         }
-        System.out.println(session.getAttribute("login"));
         return msg;
     }
 

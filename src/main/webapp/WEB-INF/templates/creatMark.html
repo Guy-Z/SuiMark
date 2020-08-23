@@ -21,7 +21,16 @@
 <body>
 <div class="container">
     <div id="editor">
-        <textarea style="display: none;"></textarea>
+        <textarea id="content" style="display: none;"></textarea>
+    </div>
+    <div id="markInfo" class="text-right form-inline">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="status">
+                仅自己可见
+            </label>
+        </div>
+        <button class="btn btn-primary" onclick="submit()">提交</button>
     </div>
 </div>
 </body>
@@ -39,5 +48,25 @@
             path: "/static/editor/lib/"
         });
     });
+
+    function submit() {
+        var content = $("#content").html();
+        var status = 0;
+        if($("#status").is(":checked")){
+            status = 1;
+        }
+        var mark = {
+          content :content,
+          status: status
+        };
+        console.log(mark);
+        $.post(
+            "/mark/add",
+            mark,
+            function (msg) {
+                console.log(msg.flag + ":" + msg.msg);
+            }
+        );
+    }
 </script>
 </html>

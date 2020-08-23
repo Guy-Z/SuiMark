@@ -92,7 +92,7 @@ public class AccountService implements IAccountService {
      * @param accountAndInfo
      * @return
      */
-    private boolean accountAndInfoIsEmpty(AccountAndInfo accountAndInfo) {
+    public boolean accountAndInfoIsEmpty(AccountAndInfo accountAndInfo) {
         String name = accountAndInfo.getName();
         String username = accountAndInfo.getUsername();
         String password = accountAndInfo.getPassword();
@@ -117,7 +117,7 @@ public class AccountService implements IAccountService {
      * @param accountAndInfo
      * @return
      */
-    private AccountAndInfo removeBlankAccountAndInfo(AccountAndInfo accountAndInfo) {
+    public AccountAndInfo removeBlankAccountAndInfo(AccountAndInfo accountAndInfo) {
         accountAndInfo.setName(accountAndInfo.getName().replace(" ", ""));
         accountAndInfo.setUsername(accountAndInfo.getUsername().replace(" ", ""));
         accountAndInfo.setPassword(accountAndInfo.getPassword().replace(" ", ""));
