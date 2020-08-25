@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author FGuy
@@ -24,29 +26,81 @@ public class MarkController {
     @Autowired
     private MarkService markService;
 
+    /**
+     * 添加'随记'页面
+     *
+     * @return
+     */
     @GetMapping("add")
     public String addView() {
+
+        /*
+            需验证登录
+         */
+
         return "creatMark";
     }
 
+    /**
+     * 添加'随记'
+     *
+     * @param mark
+     * @param session
+     * @return
+     */
     @PostMapping("add")
     @ResponseBody
     public Msg add(Mark mark, HttpSession session) {
-        AccountAndInfo accountAndInfo;
-        if (session.getAttribute("login") != null) {
-            accountAndInfo = (AccountAndInfo) session.getAttribute("login");
-        }else{
-            return new Msg(false,"未登录账户");
+        if (!this.isLogin(session)) {
+            return new Msg(false, "未登录");
         }
 
-        mark.setCreator(accountAndInfo.getId());
-        mark.setCreat_time(System.currentTimeMillis());
-        mark.setEditor_time(mark.getCreat_time());
-
-        if(markService.addMark(mark) >= 1){
-         return new Msg(true,"提交成功");
+        if (markService.addMark(mark, (AccountAndInfo) session.getAttribute("login")) >= 1) {
+            return new Msg(true, "提交成功");
         }
         return new Msg(false, "失败，请重试");
+    }
+
+    /**
+     * 我的'随机'
+     *
+     * @param creator
+     * @param session
+     * @return
+     */
+    @PostMapping("mine")
+    @ResponseBody
+    public List<Mark> myMark(Integer creator,HttpSession session){
+        if (!this.isLogin(session)) {
+            return null;
+        }
+        return markService.getMarkByCreator(((AccountAndInfo) session.getAttribute("login")).getId());
+    }
+
+    /**
+     * 编辑'随记'
+     *
+     * @param mark
+     * @param session
+     * @return
+     */
+    @PostMapping("edit")
+    @RequestMapping
+    public Msg edit(Mark mark,HttpSession session){
+        return new Msg();
+    }
+
+
+    //******************************************************************************************************************
+
+    /**
+     * 该session是否有用户登录
+     *
+     * @param session
+     * @return
+     */
+    private boolean isLogin(HttpSession session) {
+        return (session.getAttribute("login") != null) && session.getAttribute("login") instanceof AccountAndInfo;
     }
 
 }

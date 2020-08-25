@@ -12,4 +12,12 @@
 
     </insert>
 
+    <select id="getMarkByCreator" resultType="love.xuqinqin.suiMark.model.Mark">
+
+        select id, creator, content, creat_time, editor_time, status
+        from mark
+        where creator = #{creator};
+
+    </select>
+
 </mapper>
