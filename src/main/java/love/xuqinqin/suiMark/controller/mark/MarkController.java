@@ -62,15 +62,14 @@ public class MarkController {
     }
 
     /**
-     * 我的'随机'
+     * 我的'随记'
      *
-     * @param creator
      * @param session
      * @return
      */
     @PostMapping("mine")
     @ResponseBody
-    public List<Mark> myMark(Integer creator,HttpSession session){
+    public List<Mark> myMark(HttpSession session){
         if (!this.isLogin(session)) {
             return null;
         }
@@ -85,9 +84,18 @@ public class MarkController {
      * @return
      */
     @PostMapping("edit")
-    @RequestMapping
+    @ResponseBody
     public Msg edit(Mark mark,HttpSession session){
-        return new Msg();
+
+        if (!this.isLogin(session)) {
+            return new Msg(false,"未登录");
+        }
+
+        if(markService.updateMark(mark,(AccountAndInfo) session.getAttribute("login")) >= 1){
+            return new Msg(true,"编辑成功");
+        }
+
+        return new Msg(false,"失败，请重试");
     }
 
 
