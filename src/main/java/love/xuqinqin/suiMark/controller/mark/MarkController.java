@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -97,6 +96,14 @@ public class MarkController {
 
         return new Msg(false,"失败，请重试");
     }
+
+
+    @PostMapping("del")
+    @ResponseBody
+    public Msg del(Integer id,HttpSession session){
+        return new Msg();
+    }
+
 
 
     //******************************************************************************************************************

@@ -3,6 +3,7 @@ package love.xuqinqin.suiMark.service.impl;
 import love.xuqinqin.suiMark.mapper.MarkMapper;
 import love.xuqinqin.suiMark.model.Mark;
 import love.xuqinqin.suiMark.model.dto.AccountAndInfo;
+import love.xuqinqin.suiMark.model.dto.Msg;
 import love.xuqinqin.suiMark.service.IMarkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,12 +58,18 @@ public class MarkService implements IMarkService {
      */
     public Integer updateMark(Mark mark, AccountAndInfo accountAndInfo){
         mark.setCreator(accountAndInfo.getId());
-        if(isOwn(mark)) {
+        if(isOwn(mark) && checkStatus(mark)) {
             mark.setEditor_time(System.currentTimeMillis());
             return updateMark(mark);
         }
         return 0;
     }
+
+    public Msg logicDelMark(Mark mark,AccountAndInfo accountAndInfo){
+        return new Msg();
+    }
+
+
 
     //******************************************************************************************************************
 
@@ -80,4 +87,15 @@ public class MarkService implements IMarkService {
         }
         return false;
     }
+
+    /**
+     * 检查随记状态是否正确
+     *
+     * @param mark
+     * @return
+     */
+    private boolean checkStatus(Mark mark){
+        return mark.getStatus() == 0 || mark.getStatus() == 1 || mark.getStatus() == 2;
+    }
 }
+
