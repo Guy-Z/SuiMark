@@ -30,4 +30,12 @@
 
     </update>
 
+    <select id="getMarkById" resultType="love.xuqinqin.suiMark.model.Mark">
+
+        select id, creator, content, creat_time, editor_time, status
+        from mark
+        where id = #{id}
+
+    </select>
+
 </mapper>

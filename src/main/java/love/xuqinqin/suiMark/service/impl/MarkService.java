@@ -31,6 +31,11 @@ public class MarkService implements IMarkService {
     }
 
     @Override
+    public Mark getMarkById(Integer id) {
+        return markMapper.getMarkById(id);
+    }
+
+    @Override
     public Integer updateMark(Mark mark) {
         return markMapper.updateMark(mark);
     }
@@ -65,8 +70,25 @@ public class MarkService implements IMarkService {
         return 0;
     }
 
-    public Msg logicDelMark(Mark mark,AccountAndInfo accountAndInfo){
-        return new Msg();
+    /**
+     * 逻辑删除随'随记'
+     *
+     * @param id
+     * @param accountAndInfo
+     * @return
+     */
+    public Msg logicDelMark(Integer id,AccountAndInfo accountAndInfo){
+        Mark mark = this.getMarkById(id);
+        if(mark.getCreator().equals(accountAndInfo.getId())) {
+            mark.setEditor_time(System.currentTimeMillis());
+            mark.setStatus(2);
+            updateMark(mark);
+            return new Msg(true,"删除成功");
+        }
+
+
+        return new Msg(false,"删除失败");
+
     }
 
 

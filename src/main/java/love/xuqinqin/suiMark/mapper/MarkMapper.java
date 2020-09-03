@@ -16,6 +16,8 @@ public interface MarkMapper {
 
     List<Mark> getMarkByCreator(Integer creator);
 
+    Mark getMarkById(Integer id);
+
     Integer updateMark(Mark mark);
 
 }

@@ -14,6 +14,9 @@ public interface IMarkService {
 
     List<Mark> getMarkByCreator(Integer creator);
 
+    Mark getMarkById(Integer id);
+
+
     Integer updateMark(Mark mark);
 
 }

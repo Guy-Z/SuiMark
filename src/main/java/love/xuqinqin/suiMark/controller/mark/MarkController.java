@@ -101,7 +101,13 @@ public class MarkController {
     @PostMapping("del")
     @ResponseBody
     public Msg del(Integer id,HttpSession session){
-        return new Msg();
+
+        if (!this.isLogin(session)) {
+            return new Msg(false,"未登录");
+        }
+
+
+        return markService.logicDelMark(id,(AccountAndInfo) session.getAttribute("login"));
     }
 
 
