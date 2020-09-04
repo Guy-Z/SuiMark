@@ -59,12 +59,12 @@
           content :content,
           status: status
         };
-        console.log(mark);
+        // console.log(mark);
         $.post(
             "/mark/add",
             mark,
             function (msg) {
-                console.log(msg.flag + ":" + msg.msg);
+                // console.log(msg.flag + ":" + msg.msg);
             }
         );
     }
